@@ -4,10 +4,10 @@
 }
 
 body {
-  width: 380px;
+  width: 390px;
   margin: 0;
-  background: #f9fafb;
-  color: #111827;
+  background: #f8fafc;
+  color: #0f172a;
 }
 
 .container {
@@ -16,25 +16,26 @@ body {
 
 h1 {
   font-size: 16px;
-  margin-bottom: 12px;
   text-align: center;
+  margin-bottom: 12px;
 }
 
+/* Tabs */
 .tabs {
   display: flex;
   background: #e5e7eb;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
 }
 
 .tab {
   flex: 1;
-  padding: 8px;
-  border: none;
-  cursor: pointer;
-  background: transparent;
+  padding: 9px;
   font-size: 13px;
   font-weight: 500;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 
 .tab.active {
@@ -44,34 +45,54 @@ h1 {
 
 .content {
   display: none;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .content.active {
   display: block;
 }
 
+/* Meta Fields */
 .field {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .field label {
   font-size: 11px;
-  color: #6b7280;
   text-transform: uppercase;
+  color: #64748b;
 }
 
 .field p {
   font-size: 13px;
-  margin: 2px 0 0;
+  margin: 4px 0 0;
   word-break: break-word;
 }
 
+/* OG Image */
+.og-preview {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Headings Grid */
+.heading-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  font-size: 13px;
+}
+
+/* SERP Preview */
 .serp {
   background: #fff;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
 }
 
 .serp.desktop {
@@ -83,22 +104,27 @@ h1 {
 }
 
 .serp-title {
+  display: block;
   color: #1a0dab;
   font-size: 16px;
   font-weight: 500;
-  text-decoration: none;
-  display: block;
   margin-bottom: 4px;
+  text-decoration: none;
 }
 
 .serp-url {
-  color: #006621;
   font-size: 12px;
+  color: #006621;
   margin-bottom: 6px;
 }
 
 .serp-desc {
-  color: #4b5563;
   font-size: 13px;
+  color: #4b5563;
   line-height: 1.4;
+}
+
+/* Mobile Tweaks */
+.serp.mobile .serp-title {
+  font-size: 15px;
 }
