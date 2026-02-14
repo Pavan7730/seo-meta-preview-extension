@@ -15,7 +15,7 @@
       <button class="tab" data-tab="mobile">Mobile</button>
     </div>
 
-    <!-- META INFO -->
+    <!-- META -->
     <div class="content active" id="meta">
       <div class="field">
         <label>Meta Title</label>
@@ -28,7 +28,7 @@
       </div>
 
       <div class="field">
-        <label>Robots Tag</label>
+        <label>Robots</label>
         <p id="robots"></p>
       </div>
 
@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <!-- DESKTOP PREVIEW -->
+    <!-- DESKTOP -->
     <div class="content" id="desktop">
       <div class="serp desktop">
         <a class="serp-title" id="desktop-title"></a>
@@ -64,13 +64,26 @@
       </div>
     </div>
 
-    <!-- MOBILE PREVIEW -->
+    <!-- MOBILE -->
     <div class="content" id="mobile">
-      <div class="serp mobile">
-        <a class="serp-title" id="mobile-title"></a>
-        <div class="serp-url" id="mobile-url"></div>
-        <div class="serp-desc" id="mobile-desc"></div>
+
+      <div class="device-selector">
+        <label>Device Preview</label>
+        <select id="deviceSelect">
+          <option value="iphone">iPhone 14</option>
+          <option value="pixel">Pixel 7</option>
+          <option value="samsung">Galaxy S23</option>
+        </select>
       </div>
+
+      <div class="phone-frame">
+        <div class="serp mobile" id="mobileSerp">
+          <a class="serp-title" id="mobile-title"></a>
+          <div class="serp-url" id="mobile-url"></div>
+          <div class="serp-desc" id="mobile-desc"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
