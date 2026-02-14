@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  font-family: Inter, Arial, sans-serif;
+}
+
+body {
+  width: 380px;
+  margin: 0;
+  background: #f9fafb;
+  color: #111827;
+}
+
+.container {
+  padding: 14px;
+}
+
+h1 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  background: #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tab {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tab.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+.content {
+  display: none;
+  margin-top: 12px;
+}
+
+.content.active {
+  display: block;
+}
+
+.field {
+  margin-bottom: 10px;
+}
+
+.field label {
+  font-size: 11px;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.field p {
+  font-size: 13px;
+  margin: 2px 0 0;
+  word-break: break-word;
+}
+
+.serp {
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.serp.desktop {
+  max-width: 600px;
+}
+
+.serp.mobile {
+  max-width: 360px;
+}
+
+.serp-title {
+  color: #1a0dab;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.serp-url {
+  color: #006621;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.serp-desc {
+  color: #4b5563;
+  font-size: 13px;
+  line-height: 1.4;
+}
