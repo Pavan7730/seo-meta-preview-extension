@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SEO Meta Preview</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>SEO Meta Preview</h1>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="meta">Meta Info</button>
+      <button class="tab" data-tab="desktop">Desktop</button>
+      <button class="tab" data-tab="mobile">Mobile</button>
+    </div>
+
+    <div class="content active" id="meta">
+      <div class="field">
+        <label>Meta Title</label>
+        <p id="meta-title"></p>
+      </div>
+
+      <div class="field">
+        <label>Meta Description</label>
+        <p id="meta-description"></p>
+      </div>
+
+      <div class="field">
+        <label>Robots Tag</label>
+        <p id="robots"></p>
+      </div>
+
+      <div class="field">
+        <label>URL</label>
+        <p id="url"></p>
+      </div>
+
+      <div class="field">
+        <label>Canonical</label>
+        <p id="canonical"></p>
+      </div>
+    </div>
+
+    <div class="content" id="desktop">
+      <div class="serp desktop">
+        <a class="serp-title" id="desktop-title"></a>
+        <div class="serp-url" id="desktop-url"></div>
+        <div class="serp-desc" id="desktop-desc"></div>
+      </div>
+    </div>
+
+    <div class="content" id="mobile">
+      <div class="serp mobile">
+        <a class="serp-title" id="mobile-title"></a>
+        <div class="serp-url" id="mobile-url"></div>
+        <div class="serp-desc" id="mobile-desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
