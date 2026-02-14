@@ -1,17 +1,15 @@
 /* Tabs */
-const tabs = document.querySelectorAll(".tab");
-const contents = document.querySelectorAll(".content");
-
-tabs.forEach(tab => {
+document.querySelectorAll(".tab").forEach(tab => {
   tab.addEventListener("click", () => {
-    tabs.forEach(t => t.classList.remove("active"));
-    contents.forEach(c => c.classList.remove("active"));
+    document.querySelectorAll(".tab, .content").forEach(el =>
+      el.classList.remove("active")
+    );
     tab.classList.add("active");
     document.getElementById(tab.dataset.tab).classList.add("active");
   });
 });
 
-/* Pixel truncation */
+/* Truncate by pixel */
 function truncateByPixel(text, maxWidth, font) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -19,18 +17,25 @@ function truncateByPixel(text, maxWidth, font) {
 
   if (ctx.measureText(text).width <= maxWidth) return text;
 
-  let truncated = "";
-  for (const char of text) {
-    if (ctx.measureText(truncated + char + "…").width > maxWidth) {
-      return truncated + "…";
-    }
-    truncated += char;
+  let out = "";
+  for (const ch of text) {
+    if (ctx.measureText(out + ch + "…").width > maxWidth) return out + "…";
+    out += ch;
   }
-  return truncated;
+  return out;
 }
 
-/* Inject content script */
-chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+/* Mobile presets */
+const devices = {
+  iphone: { width: 390, titleFont: "15px Arial", descFont: "13px Arial", titlePx: 320, descPx: 680 },
+  pixel: { width: 412, titleFont: "15px Arial", descFont: "13px Arial", titlePx: 340, descPx: 700 },
+  samsung: { width: 360, titleFont: "14px Arial", descFont: "12.5px Arial", titlePx: 300, descPx: 650 }
+};
+
+let seoData = null;
+
+/* Inject content.js */
+chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
   chrome.scripting.executeScript({
     target: { tabId: tabs[0].id },
     files: ["content.js"]
@@ -38,44 +43,45 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 });
 
 /* Receive data */
-chrome.runtime.onMessage.addListener((data) => {
-  // Meta
-  document.getElementById("meta-title").textContent =
-    `${data.title} (${data.title.length} chars)`;
+chrome.runtime.onMessage.addListener(data => {
+  seoData = data;
 
-  document.getElementById("meta-description").textContent =
-    `${data.description} (${data.description.length} chars)`;
-
+  document.getElementById("meta-title").textContent = `${data.title} (${data.title.length})`;
+  document.getElementById("meta-description").textContent = `${data.description} (${data.description.length})`;
   document.getElementById("robots").textContent = data.robots;
   document.getElementById("url").textContent = data.url;
   document.getElementById("canonical").textContent = data.canonical || "Not specified";
 
-  // OG Image
-  if (data.ogImage) {
-    document.getElementById("og-image").src = data.ogImage;
-  }
+  if (data.ogImage) document.getElementById("og-image").src = data.ogImage;
 
-  // Headings
   document.getElementById("h1-count").textContent = data.headings.h1;
   document.getElementById("h2-count").textContent = data.headings.h2;
   document.getElementById("h3-count").textContent = data.headings.h3;
   document.getElementById("h4-count").textContent = data.headings.h4;
 
-  // Desktop SERP
-  document.getElementById("desktop-title").textContent =
-    truncateByPixel(data.title, 580, "16px Arial");
+  renderMobile("iphone");
+});
 
-  document.getElementById("desktop-desc").textContent =
-    truncateByPixel(data.description, 920, "13px Arial");
+/* Device change */
+document.getElementById("deviceSelect").addEventListener("change", e => {
+  renderMobile(e.target.value);
+});
 
-  document.getElementById("desktop-url").textContent = data.url;
+function renderMobile(deviceKey) {
+  if (!seoData) return;
 
-  // Mobile SERP
+  const d = devices[deviceKey];
+  const serp = document.getElementById("mobileSerp");
+  serp.style.width = d.width + "px";
+
   document.getElementById("mobile-title").textContent =
-    truncateByPixel(data.title, 320, "15px Arial");
+    truncateByPixel(seoData.title, d.titlePx, d.titleFont);
 
   document.getElementById("mobile-desc").textContent =
-    truncateByPixel(data.description, 680, "13px Arial");
+    truncateByPixel(seoData.description, d.descPx, d.descFont);
 
-  document.getElementById("mobile-url").textContent = data.url;
-});
+  document.getElementById("mobile-url").textContent = seoData.url;
+
+  document.getElementById("mobile-title").style.fontSize = d.titleFont;
+  document.getElementById("mobile-desc").style.fontSize = d.descFont;
+}
